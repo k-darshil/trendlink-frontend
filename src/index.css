@@ -1,0 +1,8 @@
+/*
+ * index.css
+ * These three lines activate Tailwind CSS.
+ * Tailwind reads these and injects all its utility classes.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
