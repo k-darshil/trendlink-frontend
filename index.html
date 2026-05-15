@@ -3,12 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TrendLink — Automated LinkedIn Posts</title>
+    <title>TrendLink — Multi-Platform Post Automation</title>
+    <!-- Runs before React to prevent flash of wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('trendlink-theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
-    <!-- React mounts the entire app here -->
     <div id="root"></div>
-    <!-- Vite injects the compiled JavaScript here at build time -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
