@@ -1,7 +1,8 @@
 {
   "name": "trendlink-frontend",
   "version": "1.0.0",
-  "description": "TrendLink UI — automated LinkedIn post scheduler",
+  "type": "module",
+  "description": "TrendLink UI — multi-platform post automation",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
