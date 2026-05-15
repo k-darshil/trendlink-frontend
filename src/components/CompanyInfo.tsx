@@ -1,13 +1,3 @@
-/**
- * CompanyInfo.tsx
- * ---------------
- * Displays the company profile (in markdown format).
- * The user can edit the profile and save it back to DynamoDB.
- *
- * The pipeline reads this profile to understand the company's brand,
- * tone, and messaging when generating LinkedIn posts.
- */
-
 import { useState } from "react";
 import { updateSettings } from "../api/client";
 
@@ -22,24 +12,20 @@ export default function CompanyInfo({ companyMarkdown, onSave }: CompanyInfoProp
   const [isSaving, setIsSaving] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
 
-  /** Switch to edit mode */
   function handleStartEditing() {
     setDraftContent(companyMarkdown);
     setIsEditing(true);
     setStatusMessage("");
   }
 
-  /** Cancel without saving */
   function handleCancel() {
     setDraftContent(companyMarkdown);
     setIsEditing(false);
   }
 
-  /** Save changes to the backend */
   async function handleSave() {
     setIsSaving(true);
-    setStatusMessage("Saving...");
-
+    setStatusMessage("Saving…");
     try {
       await updateSettings({ company_markdown: draftContent });
       onSave(draftContent);
@@ -55,52 +41,55 @@ export default function CompanyInfo({ companyMarkdown, onSave }: CompanyInfoProp
   }
 
   return (
-    <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">Company Profile</h2>
+    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-5 flex flex-col gap-3">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+            Company Profile
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Guides the AI when generating posts. Supports Markdown.
+          </p>
+        </div>
         {!isEditing && (
           <button
             onClick={handleStartEditing}
-            className="text-sm text-blue-600 hover:underline"
+            className="text-xs text-blue-700 dark:text-blue-400 hover:underline font-medium"
           >
             Edit
           </button>
         )}
       </div>
 
-      <p className="text-xs text-gray-500 mb-4">
-        This profile guides the AI when generating LinkedIn posts.
-        Update it to match your company's brand and tone.
-      </p>
-
       {!isEditing && (
-        // Read-only display — preserves whitespace using whitespace-pre-wrap
-        <div className="bg-gray-50 rounded p-4 text-sm text-gray-800 whitespace-pre-wrap font-mono max-h-96 overflow-y-auto">
-          {companyMarkdown || "No company profile saved yet. Click Edit to add one."}
+        <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md p-3 max-h-80 overflow-y-auto">
+          <pre className="text-xs text-slate-700 dark:text-slate-300 whitespace-pre-wrap font-mono leading-relaxed">
+            {companyMarkdown || "No company profile saved yet. Click Edit to add one."}
+          </pre>
         </div>
       )}
 
       {isEditing && (
-        <div>
+        <div className="flex flex-col gap-3">
           <textarea
             value={draftContent}
             onChange={(e) => setDraftContent(e.target.value)}
-            rows={20}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
-            placeholder="Enter your company profile in markdown format..."
+            rows={16}
+            className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-md text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono leading-relaxed"
+            placeholder={"## About\nWe are a B2B SaaS company...\n\n## Tone\nProfessional, concise, thought-leadership focused."}
           />
-          <div className="flex gap-2 mt-3">
+          <div className="flex gap-2">
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400"
+              className="px-4 py-2 bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white text-xs font-semibold rounded-md transition-colors disabled:cursor-not-allowed"
             >
-              {isSaving ? "Saving..." : "Save"}
+              {isSaving ? "Saving…" : "Save Changes"}
             </button>
             <button
               onClick={handleCancel}
               disabled={isSaving}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
+              className="px-4 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-md transition-colors"
             >
               Cancel
             </button>
@@ -109,8 +98,8 @@ export default function CompanyInfo({ companyMarkdown, onSave }: CompanyInfoProp
       )}
 
       {statusMessage && (
-        <p className="text-sm text-gray-600 mt-3">{statusMessage}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">{statusMessage}</p>
       )}
-    </section>
+    </div>
   );
 }

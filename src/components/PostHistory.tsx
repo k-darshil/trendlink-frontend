@@ -1,62 +1,79 @@
-/**
- * PostHistory.tsx
- * ---------------
- * Shows a table of all past pipeline runs and their status.
- * Each row is clickable — clicking opens a preview modal.
- */
-
 import type { Post } from "../types";
 
 interface PostHistoryProps {
   posts: Post[];
   isLoading: boolean;
-  onSelectPost: (post: Post) => void;
+  onViewPost: (post: Post) => void;
+  searchQuery: string;
 }
 
-export default function PostHistory({ posts, isLoading, onSelectPost }: PostHistoryProps) {
-  return (
-    <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">Post History</h2>
+export default function PostHistory({ posts, isLoading, onViewPost, searchQuery }: PostHistoryProps) {
+  const filtered = posts.filter((p) => {
+    const q = searchQuery.toLowerCase();
+    return (
+      p.newsHeadline?.toLowerCase().includes(q) ||
+      p.region?.toLowerCase().includes(q) ||
+      p.status.toLowerCase().includes(q)
+    );
+  });
 
-      {isLoading && <p className="text-gray-500">Loading...</p>}
+  return (
+    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm overflow-hidden">
+      {isLoading && (
+        <p className="p-6 text-sm text-slate-500 dark:text-slate-400">Loading…</p>
+      )}
 
       {!isLoading && posts.length === 0 && (
-        <p className="text-gray-500">
-          No posts yet. Click "Run Now" above to create your first one.
+        <p className="p-6 text-sm text-slate-500 dark:text-slate-400">
+          No posts yet. Go to Dashboard and click "Run Now" to create your first one.
         </p>
       )}
 
-      {posts.length > 0 && (
+      {!isLoading && posts.length > 0 && filtered.length === 0 && (
+        <p className="p-6 text-sm text-slate-500 dark:text-slate-400">
+          No posts match your search.
+        </p>
+      )}
+
+      {filtered.length > 0 && (
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-              <tr>
-                <th className="px-4 py-3">Date</th>
-                <th className="px-4 py-3">Region</th>
-                <th className="px-4 py-3">Headline</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3">Action</th>
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
+                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date</th>
+                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Platform</th>
+                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
+                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Headline</th>
+                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Triggered By</th>
+                <th className="px-4 py-3"></th>
               </tr>
             </thead>
             <tbody>
-              {posts.map((post) => (
+              {filtered.map((post) => (
                 <tr
                   key={post.postId}
-                  className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer"
-                  onClick={() => onSelectPost(post)}
+                  className="border-b border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors"
                 >
-                  <td className="px-4 py-3 text-gray-700">
+                  <td className="px-4 py-3 text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
                     {formatDate(post.updatedAt)}
                   </td>
-                  <td className="px-4 py-3 text-gray-700">{post.region || "—"}</td>
-                  <td className="px-4 py-3 text-gray-700 max-w-xs truncate">
-                    {post.newsHeadline || "—"}
+                  <td className="px-4 py-3 text-xs text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                    🔗 LinkedIn
                   </td>
                   <td className="px-4 py-3">
                     <StatusBadge status={post.status} />
                   </td>
+                  <td className="px-4 py-3 text-xs text-slate-700 dark:text-slate-300 max-w-xs truncate">
+                    {post.newsHeadline || "—"}
+                  </td>
+                  <td className="px-4 py-3 text-xs text-slate-500 dark:text-slate-400 capitalize">
+                    {post.triggeredBy || "—"}
+                  </td>
                   <td className="px-4 py-3">
-                    <button className="text-blue-600 hover:underline text-xs">
+                    <button
+                      onClick={() => onViewPost(post)}
+                      className="text-xs text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 font-medium hover:underline"
+                    >
                       View →
                     </button>
                   </td>
@@ -66,36 +83,28 @@ export default function PostHistory({ posts, isLoading, onSelectPost }: PostHist
           </table>
         </div>
       )}
-    </section>
+    </div>
   );
 }
 
-/** A small colored badge that shows the status of a post */
 function StatusBadge({ status }: { status: Post["status"] }) {
-  // Each status has different background/text colors for quick visual recognition
   const styles: Record<Post["status"], string> = {
-    pending: "bg-yellow-100 text-yellow-800",
-    running: "bg-blue-100 text-blue-800",
-    draft: "bg-gray-100 text-gray-800",
-    posted: "bg-green-100 text-green-800",
-    failed: "bg-red-100 text-red-800",
+    pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300",
+    running: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+    draft:   "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
+    posted:  "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
+    failed:  "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
   };
-
   return (
-    <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status]}`}>
+    <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${styles[status]}`}>
       {status}
     </span>
   );
 }
 
-/**
- * Formats an ISO date string into a human-readable format.
- * Example: "2026-05-01T20:00:00Z" → "May 1, 2026, 8:00 PM"
- */
 function formatDate(isoString: string): string {
   if (!isoString) return "—";
-  const date = new Date(isoString);
-  return date.toLocaleString(undefined, {
+  return new Date(isoString).toLocaleString(undefined, {
     month: "short",
     day: "numeric",
     year: "numeric",
