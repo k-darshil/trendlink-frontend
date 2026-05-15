@@ -19,7 +19,7 @@ export default function DashboardTab({ posts, settings, onTriggered }: Dashboard
   return (
     <div className="flex flex-col gap-5">
       {/* Stat cards */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-4">
           <p className="text-[9px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
             Total Posts

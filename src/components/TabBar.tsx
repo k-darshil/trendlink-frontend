@@ -14,8 +14,8 @@ interface TabBarProps {
 
 export default function TabBar({ activeTab, onTabChange }: TabBarProps) {
   return (
-    <nav className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-700">
-      <div className="max-w-6xl mx-auto px-6 flex items-stretch h-10">
+    <nav className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
+      <div className="max-w-6xl mx-auto px-6 flex items-stretch h-10 min-w-max sm:min-w-0">
         {TABS.map((tab, index) => (
           <div key={tab.id} className="flex items-stretch">
             {index > 0 && (

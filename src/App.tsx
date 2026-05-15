@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import TopNav from "./components/TopNav";
 import TabBar, { type Tab } from "./components/TabBar";
 import DashboardTab from "./components/tabs/DashboardTab";
@@ -16,19 +16,14 @@ export default function App() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [settings, setSettings] = useState<Settings>({ region: "Canada", company_markdown: "" });
   const [isLoading, setIsLoading] = useState(true);
+  const hasActivePost = useMemo(
+    () => posts.some((p) => p.status === "running" || p.status === "pending"),
+    [posts]
+  );
 
   useEffect(() => {
     loadAllData();
   }, []);
-
-  useEffect(() => {
-    const hasRunningPost = posts.some(
-      (p) => p.status === "running" || p.status === "pending"
-    );
-    if (!hasRunningPost) return;
-    const id = setInterval(loadPosts, 10_000);
-    return () => clearInterval(id);
-  }, [posts]);
 
   async function loadAllData() {
     setIsLoading(true);
@@ -79,7 +74,9 @@ export default function App() {
           <PostsTab
             posts={posts}
             isLoading={isLoading}
+            hasActivePost={hasActivePost}
             onViewPost={handleViewPost}
+            onRefresh={loadPosts}
           />
         )}
         {activeTab === "preview" && (
