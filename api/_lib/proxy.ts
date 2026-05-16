@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getCognitoToken } from "./cognito";
+import { getCognitoToken } from "./cognito.js";
 
 export async function proxyToApiGateway(
   req: VercelRequest,
