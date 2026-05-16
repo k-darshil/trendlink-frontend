@@ -8,7 +8,7 @@ interface TopNavProps {
 export default function TopNav({ theme, onToggleTheme }: TopNavProps) {
   return (
     <header className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-700 shadow-sm">
-      <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div>
             <h1 className="text-[15px] font-bold text-slate-900 dark:text-slate-100 leading-tight">

@@ -34,7 +34,7 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
   }
 
   return (
-    <div className="grid grid-cols-2 gap-5 items-start">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
       {/* Left column: Region + Platforms */}
       <div className="flex flex-col gap-4">
         {/* Region */}

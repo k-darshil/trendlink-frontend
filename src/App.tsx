@@ -61,7 +61,7 @@ export default function App() {
       <TopNav theme={theme} onToggleTheme={toggleTheme} />
       <TabBar activeTab={activeTab} onTabChange={handleTabChange} />
 
-      <main className="max-w-6xl mx-auto px-6 py-6">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
         {activeTab === "dashboard" && (
           <DashboardTab
             posts={posts}
