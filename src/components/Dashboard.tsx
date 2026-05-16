@@ -19,7 +19,7 @@ export default function Dashboard({ settings, onTriggered }: DashboardProps) {
     setStatusMessage("Starting pipeline...");
     try {
       const response = await triggerPipeline(customMessage, dryRun);
-      setStatusMessage(`Pipeline started! Post ID: ${response.post_id.slice(0, 8)}...`);
+      setStatusMessage(`Pipeline started! Post ID: ${response.post_id}`);
       setCustomMessage("");
       onTriggered();
     } catch (error) {
