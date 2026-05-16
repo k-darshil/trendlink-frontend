@@ -1,5 +1,5 @@
 import { LinkedInIcon } from "./icons";
-import { formatDateWithRegion } from "../utils/regions";
+import { formatDateWithRegion, getFlag } from "../utils/regions";
 import type { Post } from "../types";
 
 interface PostHistoryProps {
@@ -46,6 +46,7 @@ export default function PostHistory({ posts, isLoading, onViewPost, searchQuery 
                 <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Platform</th>
                 <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
                 <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Headline</th>
+                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Region</th>
                 <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Triggered By</th>
               </tr>
             </thead>
@@ -70,6 +71,9 @@ export default function PostHistory({ posts, isLoading, onViewPost, searchQuery 
                   </td>
                   <td className="px-4 py-3 text-xs text-slate-700 dark:text-slate-300 max-w-xs truncate">
                     {post.newsHeadline || "—"}
+                  </td>
+                  <td className="px-4 py-3 text-xs text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                    {post.region ? `${getFlag(post.region)} ${post.region}` : "—"}
                   </td>
                   <td className="px-4 py-3 text-xs text-slate-500 dark:text-slate-400 capitalize">
                     {post.triggeredBy || "—"}

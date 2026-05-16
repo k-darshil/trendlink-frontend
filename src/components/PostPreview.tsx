@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { publishPost } from "../api/client";
 import { LinkedInIcon } from "./icons";
-import { formatDateWithRegion } from "../utils/regions";
+import { formatDateWithRegion, getFlag } from "../utils/regions";
 import type { Post } from "../types";
 
 interface PostPreviewProps {
@@ -43,6 +43,16 @@ export default function PostPreview({ post, onPublish }: PostPreviewProps) {
             <p className="text-xs text-slate-500 dark:text-slate-400">
               LinkedIn · ID: <span className="font-mono break-all">{post.postId}</span>
             </p>
+          </div>
+          <div className="flex items-center gap-3 mt-1 flex-wrap">
+            {post.region && (
+              <span className="text-xs text-slate-500 dark:text-slate-400">
+                {getFlag(post.region)} {post.region}
+              </span>
+            )}
+            <span className="text-xs text-slate-400 dark:text-slate-500">
+              {formatDateWithRegion(post.startedAt, post.region)}
+            </span>
           </div>
         </div>
         <StatusBadge status={post.status} />

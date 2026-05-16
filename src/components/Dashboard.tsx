@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { triggerPipeline } from "../api/client";
-import { getFlag } from "../utils/regions";
+import { getTimezoneAbbr } from "../utils/regions";
 import type { Settings } from "../types";
 
 interface DashboardProps {
@@ -30,7 +30,7 @@ export default function Dashboard({ settings, onTriggered }: DashboardProps) {
     }
   }
 
-  const flag = getFlag(settings.region);
+  const tzAbbr = getTimezoneAbbr(settings.region);
 
   return (
     <div className="flex flex-col gap-4">
@@ -42,7 +42,7 @@ export default function Dashboard({ settings, onTriggered }: DashboardProps) {
             Next Scheduled Run
           </p>
           <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">
-            Daily at 8:00 PM · {flag} {settings.region}
+            Daily at 8:00 PM{tzAbbr ? ` ${tzAbbr}` : ""}
           </p>
         </div>
         <span className="ml-auto bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 text-[10px] font-semibold px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800 select-none pointer-events-none">

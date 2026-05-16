@@ -20,6 +20,13 @@ export function getFlag(region: string): string {
   return REGION_FLAGS[region] ?? "🌐";
 }
 
+export function getTimezoneAbbr(region: string): string {
+  const tz = REGION_TIMEZONE[region];
+  if (!tz) return "";
+  const parts = new Intl.DateTimeFormat("en", { timeZone: tz, timeZoneName: "short" }).formatToParts(new Date());
+  return parts.find(p => p.type === "timeZoneName")?.value ?? "";
+}
+
 export function formatDateWithRegion(isoString: string, region?: string): string {
   if (!isoString) return "—";
   const tz = region ? REGION_TIMEZONE[region] : undefined;
