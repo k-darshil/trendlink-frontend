@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   let currentToken: string | null = null;
@@ -32,8 +32,10 @@ export default defineConfig(({ mode }) => {
     }
   }
 
-  // Fetch token immediately on startup
-  refreshToken();
+  // Only fetch token when running dev server, not during build
+  if (command === "serve") {
+    refreshToken();
+  }
 
   return {
     plugins: [react()],
