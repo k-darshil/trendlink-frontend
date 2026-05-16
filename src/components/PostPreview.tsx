@@ -51,7 +51,7 @@ export default function PostPreview({ post, onPublish }: PostPreviewProps) {
               </span>
             )}
             <span className="text-xs text-slate-400 dark:text-slate-500">
-              {formatDateWithRegion(post.startedAt, post.region)}
+              {formatDateWithRegion(post.startedAt || post.updatedAt, post.region)}
             </span>
           </div>
         </div>
