@@ -28,10 +28,10 @@ export default function PreviewTab({ post, onPublish, onBack }: PreviewTabProps)
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Post Preview</h2>
+        <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">Post Preview</h2>
         <button
           onClick={onBack}
-          className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+          className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
         >
           ← Back to Posts
         </button>

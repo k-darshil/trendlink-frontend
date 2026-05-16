@@ -38,25 +38,25 @@ export default function Dashboard({ settings, onTriggered }: DashboardProps) {
       <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 border-l-4 border-l-blue-700 dark:border-l-blue-500 rounded-lg p-4 flex items-center gap-3">
         <span className="text-xl select-none">📅</span>
         <div>
-          <p className="text-sm font-semibold text-blue-800 dark:text-blue-300">
+          <p className="text-base font-semibold text-blue-800 dark:text-blue-300">
             Next Scheduled Run
           </p>
-          <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">
+          <p className="text-sm text-blue-600 dark:text-blue-400 mt-0.5">
             Daily at 8:00 PM{tzAbbr ? ` ${tzAbbr}` : ""}
           </p>
         </div>
-        <span className="ml-auto bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 text-[10px] font-semibold px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800 select-none pointer-events-none">
+        <span className="ml-auto bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 text-sm font-semibold px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800 select-none pointer-events-none">
           ● Active
         </span>
       </div>
 
       {/* Manual trigger card */}
       <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-5">
-        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-4">
+        <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-4">
           Manual Trigger
         </h3>
 
-        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
+        <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">
           Custom message <span className="text-slate-400 dark:text-slate-500">(optional)</span>
         </label>
         <textarea
@@ -75,7 +75,7 @@ export default function Dashboard({ settings, onTriggered }: DashboardProps) {
               onChange={(e) => setDryRun(e.target.checked)}
               className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
             />
-            <span className="text-xs text-slate-600 dark:text-slate-400">
+            <span className="text-sm text-slate-600 dark:text-slate-400">
               Dry-run mode <span className="text-slate-400 dark:text-slate-500">(won't post live)</span>
             </span>
           </label>
@@ -83,14 +83,14 @@ export default function Dashboard({ settings, onTriggered }: DashboardProps) {
           <button
             onClick={handleTrigger}
             disabled={isTriggering}
-            className="px-4 py-2 bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white text-xs font-semibold rounded-md transition-colors disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white text-sm font-semibold rounded-md transition-colors disabled:cursor-not-allowed"
           >
             {isTriggering ? "Starting…" : "▶ Run Now"}
           </button>
         </div>
 
         {statusMessage && (
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">{statusMessage}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-3">{statusMessage}</p>
         )}
       </div>
     </div>

@@ -37,7 +37,7 @@ export default function PostsTab({ posts, isLoading, hasActivePost, onViewPost, 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Post History</h2>
+        <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">Post History</h2>
 
         <div className="flex items-center gap-3 flex-wrap">
           {/* Refresh button — only active when a post is pending/running and cooldown has passed */}
@@ -51,7 +51,7 @@ export default function PostsTab({ posts, isLoading, hasActivePost, onViewPost, 
                 ? `Wait ${cooldownRemaining}s before refreshing again`
                 : "Refresh post status"
             }
-            className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+            className={`px-3 py-1.5 text-sm font-semibold rounded-md transition-colors ${
               isRefreshDisabled
                 ? "bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed"
                 : "bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm cursor-pointer"
@@ -65,7 +65,7 @@ export default function PostsTab({ posts, isLoading, hasActivePost, onViewPost, 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search posts…"
-            className="w-full sm:w-52 px-3 py-1.5 text-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full sm:w-52 px-3 py-1.5 text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>

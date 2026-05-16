@@ -39,10 +39,10 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
       <div className="flex flex-col gap-4">
         {/* Region */}
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-5">
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-1">
+          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-1">
             Target Region
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
             News searches will focus on this region.
           </p>
           <select
@@ -57,13 +57,13 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
             ))}
           </select>
           {regionStatus && (
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{regionStatus}</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">{regionStatus}</p>
           )}
         </div>
 
         {/* Platforms */}
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm p-5">
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-3">
+          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-3">
             Platforms
           </h3>
           <div className="flex flex-col gap-3">
@@ -75,8 +75,8 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
                 className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600 text-blue-600"
               />
               <LinkedInIcon className="w-4 h-4 shrink-0" />
-              <span className="text-xs text-slate-700 dark:text-slate-300">LinkedIn</span>
-              <span className="ml-auto bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 text-[10px] font-semibold px-2 py-0.5 rounded-full">
+              <span className="text-sm text-slate-700 dark:text-slate-300">LinkedIn</span>
+              <span className="ml-auto bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 text-sm font-semibold px-2 py-0.5 rounded-full">
                 Active
               </span>
             </div>
@@ -87,8 +87,8 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
                 className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600"
               />
               <TwitterXIcon className="w-4 h-4 shrink-0 text-slate-700 dark:text-slate-300" />
-              <span className="text-xs text-slate-500 dark:text-slate-400">Twitter / X</span>
-              <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500">Coming soon</span>
+              <span className="text-sm text-slate-500 dark:text-slate-400">Twitter / X</span>
+              <span className="ml-auto text-sm text-slate-400 dark:text-slate-500">Coming soon</span>
             </div>
             <div className="flex items-center gap-2 opacity-50">
               <input
@@ -97,8 +97,8 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
                 className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600"
               />
               <InstagramIcon className="w-4 h-4 shrink-0" />
-              <span className="text-xs text-slate-500 dark:text-slate-400">Instagram</span>
-              <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500">Coming soon</span>
+              <span className="text-sm text-slate-500 dark:text-slate-400">Instagram</span>
+              <span className="ml-auto text-sm text-slate-400 dark:text-slate-500">Coming soon</span>
             </div>
           </div>
         </div>

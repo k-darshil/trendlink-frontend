@@ -42,12 +42,12 @@ export default function PostHistory({ posts, isLoading, onViewPost, searchQuery 
           <table className="w-full text-left">
             <thead>
               <tr className="border-b-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
-                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date</th>
-                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Platform</th>
-                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
-                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Headline</th>
-                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Region</th>
-                <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Triggered By</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Platform</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Headline</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Region</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Triggered By</th>
               </tr>
             </thead>
             <tbody>
@@ -57,25 +57,25 @@ export default function PostHistory({ posts, isLoading, onViewPost, searchQuery 
                   onClick={() => onViewPost(post)}
                   className="border-b border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
                 >
-                  <td className="px-4 py-3 text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                  <td className="px-4 py-3 text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
                     {formatDateWithRegion(post.updatedAt, post.region)}
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <span className="flex items-center gap-1.5">
                       <LinkedInIcon className="w-3.5 h-3.5 shrink-0" />
-                      <span className="text-xs text-slate-700 dark:text-slate-300">LinkedIn</span>
+                      <span className="text-sm text-slate-700 dark:text-slate-300">LinkedIn</span>
                     </span>
                   </td>
                   <td className="px-4 py-3">
                     <StatusBadge status={post.status} />
                   </td>
-                  <td className="px-4 py-3 text-xs text-slate-700 dark:text-slate-300 max-w-xs truncate">
+                  <td className="px-4 py-3 text-sm text-slate-700 dark:text-slate-300 max-w-xs truncate">
                     {post.newsHeadline || "—"}
                   </td>
-                  <td className="px-4 py-3 text-xs text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                  <td className="px-4 py-3 text-sm text-slate-700 dark:text-slate-300 whitespace-nowrap">
                     {post.region ? `${getFlag(post.region)} ${post.region}` : "—"}
                   </td>
-                  <td className="px-4 py-3 text-xs text-slate-500 dark:text-slate-400 capitalize">
+                  <td className="px-4 py-3 text-sm text-slate-500 dark:text-slate-400 capitalize">
                     {post.triggeredBy || "—"}
                   </td>
                 </tr>
@@ -97,7 +97,7 @@ function StatusBadge({ status }: { status: Post["status"] }) {
     failed:  "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
   };
   return (
-    <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${styles[status]}`}>
+    <span className={`px-2 py-0.5 rounded-full text-sm font-semibold ${styles[status]}`}>
       {status}
     </span>
   );

@@ -11,10 +11,10 @@ export default function TopNav({ theme, onToggleTheme }: TopNavProps) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div>
-            <h1 className="text-[15px] font-bold text-slate-900 dark:text-slate-100 leading-tight">
+            <h1 className="text-base font-bold text-slate-900 dark:text-slate-100 leading-tight">
               TrendLink
             </h1>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+            <p className="text-sm text-slate-500 dark:text-slate-400 leading-tight">
               Multi-Platform Post Automation
             </p>
           </div>
