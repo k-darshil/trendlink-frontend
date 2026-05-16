@@ -1,3 +1,5 @@
+import { LinkedInIcon } from "./icons";
+import { formatDateWithRegion } from "../utils/regions";
 import type { Post } from "../types";
 
 interface PostHistoryProps {
@@ -45,20 +47,23 @@ export default function PostHistory({ posts, isLoading, onViewPost, searchQuery 
                 <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
                 <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Headline</th>
                 <th className="px-4 py-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Triggered By</th>
-                <th className="px-4 py-3"></th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((post) => (
                 <tr
                   key={post.postId}
-                  className="border-b border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors"
+                  onClick={() => onViewPost(post)}
+                  className="border-b border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
                 >
                   <td className="px-4 py-3 text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
-                    {formatDate(post.updatedAt)}
+                    {formatDateWithRegion(post.updatedAt, post.region)}
                   </td>
-                  <td className="px-4 py-3 text-xs text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                    🔗 LinkedIn
+                  <td className="px-4 py-3 whitespace-nowrap">
+                    <span className="flex items-center gap-1.5">
+                      <LinkedInIcon className="w-3.5 h-3.5 shrink-0" />
+                      <span className="text-xs text-slate-700 dark:text-slate-300">LinkedIn</span>
+                    </span>
                   </td>
                   <td className="px-4 py-3">
                     <StatusBadge status={post.status} />
@@ -68,14 +73,6 @@ export default function PostHistory({ posts, isLoading, onViewPost, searchQuery 
                   </td>
                   <td className="px-4 py-3 text-xs text-slate-500 dark:text-slate-400 capitalize">
                     {post.triggeredBy || "—"}
-                  </td>
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => onViewPost(post)}
-                      className="text-xs text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 font-medium hover:underline"
-                    >
-                      View →
-                    </button>
                   </td>
                 </tr>
               ))}
@@ -100,15 +97,4 @@ function StatusBadge({ status }: { status: Post["status"] }) {
       {status}
     </span>
   );
-}
-
-function formatDate(isoString: string): string {
-  if (!isoString) return "—";
-  return new Date(isoString).toLocaleString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  });
 }

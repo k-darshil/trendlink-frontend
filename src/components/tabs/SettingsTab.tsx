@@ -1,6 +1,8 @@
 import { useState } from "react";
 import CompanyInfo from "../CompanyInfo";
+import { LinkedInIcon, TwitterXIcon, InstagramIcon } from "../icons";
 import { updateSettings } from "../../api/client";
+import { REGION_FLAGS } from "../../utils/regions";
 import type { Settings } from "../../types";
 
 const AVAILABLE_REGIONS = [
@@ -49,7 +51,9 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
             className="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-md text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {AVAILABLE_REGIONS.map((r) => (
-              <option key={r} value={r}>{r}</option>
+              <option key={r} value={r}>
+                {REGION_FLAGS[r] ?? "🌐"} {r}
+              </option>
             ))}
           </select>
           {regionStatus && (
@@ -70,7 +74,8 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
                 readOnly
                 className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600 text-blue-600"
               />
-              <span className="text-xs text-slate-700 dark:text-slate-300">🔗 LinkedIn</span>
+              <LinkedInIcon className="w-4 h-4 shrink-0" />
+              <span className="text-xs text-slate-700 dark:text-slate-300">LinkedIn</span>
               <span className="ml-auto bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 text-[10px] font-semibold px-2 py-0.5 rounded-full">
                 Active
               </span>
@@ -81,7 +86,8 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
                 disabled
                 className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600"
               />
-              <span className="text-xs text-slate-500 dark:text-slate-400">𝕏 Twitter / X</span>
+              <TwitterXIcon className="w-4 h-4 shrink-0 text-slate-700 dark:text-slate-300" />
+              <span className="text-xs text-slate-500 dark:text-slate-400">Twitter / X</span>
               <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500">Coming soon</span>
             </div>
             <div className="flex items-center gap-2 opacity-50">
@@ -90,7 +96,8 @@ export default function SettingsTab({ settings, onSettingsChange }: SettingsTabP
                 disabled
                 className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600"
               />
-              <span className="text-xs text-slate-500 dark:text-slate-400">📸 Instagram</span>
+              <InstagramIcon className="w-4 h-4 shrink-0" />
+              <span className="text-xs text-slate-500 dark:text-slate-400">Instagram</span>
               <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500">Coming soon</span>
             </div>
           </div>

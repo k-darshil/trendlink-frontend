@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { publishPost } from "../api/client";
+import { LinkedInIcon } from "./icons";
+import { formatDateWithRegion } from "../utils/regions";
 import type { Post } from "../types";
 
 interface PostPreviewProps {
@@ -36,9 +38,12 @@ export default function PostPreview({ post, onPublish }: PostPreviewProps) {
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
             {post.status === "posted" ? "Published Post" : "Post Preview"}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            🔗 LinkedIn · ID: {post.postId.slice(0, 8)}…
-          </p>
+          <div className="flex items-center gap-1.5 mt-0.5">
+            <LinkedInIcon className="w-3.5 h-3.5 shrink-0" />
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              LinkedIn · ID: <span className="font-mono break-all">{post.postId}</span>
+            </p>
+          </div>
         </div>
         <StatusBadge status={post.status} />
       </div>
@@ -97,7 +102,9 @@ export default function PostPreview({ post, onPublish }: PostPreviewProps) {
       {post.status === "posted" && (
         <p className="text-xs text-green-700 dark:text-green-400">
           ✓ Posted to LinkedIn at{" "}
-          {post.postedAt ? new Date(post.postedAt).toLocaleString() : "unknown time"}
+          {post.postedAt
+            ? formatDateWithRegion(post.postedAt, post.region)
+            : "unknown time"}
         </p>
       )}
 
